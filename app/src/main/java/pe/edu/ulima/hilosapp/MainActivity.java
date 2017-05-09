@@ -26,29 +26,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
-        // proceso altamente pesado (computacionalmente hablando)
-        Thread hilo = new Thread(){
-            @Override
-            public void run() {
-                // se va a ejecutar en un hilo alterno
-                procesoPesado();
-
-            }
-        };
-        hilo.start();
+        TareaComplejaTask task =
+                new TareaComplejaTask(tviMensaje);
+        Integer[] nums = {1,2};
+        task.execute(nums);
     }
 
-    private void procesoPesado(){
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                tviMensaje.setText("Proceso terminado");
-            }
-        });
-    }
+
 }
